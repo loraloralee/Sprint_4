@@ -58,42 +58,6 @@ public class RentPage {
             return driver.findElement(orderCompleted).getText();
         }
 
+    }
 
-    /*Набор 2
-    public RentPage sendDate_2() {
-        driver.findElement(inputDate).click();
-        return this;
-    }
-    public RentPage sendChooseDate() {
-        driver.findElement(chooseDate).click();
-        return this;
-    }
-    public RentPage sendInputPeriod_2() {
-        driver.findElement(inputPeriod).click();
-        return this;
-    }
-    public RentPage sendChoosePeriod_2() {
-        driver.findElement(choosePeriod_2).click();
-        return this;
-    }
-    public RentPage sendChooseСolor_2() {
-        driver.findElement(chooseColor_2).click();
-        return this;
-    }
-    public RentPage sendComment_2() {
-        driver.findElement(inputComment).sendKeys("Захватите пивка");
-        return this;
-    }
-    public RentPage clickButtonOrder_2() {
-        driver.findElement(buttonOrder).click();
-        return this;
-    }
-    public RentPage clickButtonOrderYes_2() {
-        driver.findElement(buttonOrderYes).click();
-        return this;
-    }
-    public String getOrderCompleted_2() {
-        return  driver.findElement(orderCompleted).getText();
-    }*/
-    }
 

@@ -23,7 +23,6 @@ public class Order {
         return phone;
     }
 
-
     public Order(String name, String surname, String address, String station, String phone) {
         this.name = name;
         this.surname = surname;
@@ -32,3 +31,4 @@ public class Order {
         this.phone = phone;
     }
 }
+
