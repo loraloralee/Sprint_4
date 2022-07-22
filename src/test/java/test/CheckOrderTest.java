@@ -1,10 +1,7 @@
 package test;
 
-import home.HomePage;
-import home.OrderPage;
-import home.RentPage;
+import home.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
@@ -12,14 +9,42 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import static org.hamcrest.CoreMatchers.containsString;
 import org.hamcrest.MatcherAssert;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.concurrent.TimeUnit;
 
-
+@RunWith(Parameterized.class)
 public class CheckOrderTest {
     private WebDriver driver;
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String station;
+    private final String phone;
+    private final String date;
+    private final String period;
+    private final String color;
+    private final String comment;
+
+    public CheckOrderTest(String name, String surname, String address, String station, String phone, String date, String period, String color, String comment) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.station = station;
+        this.phone = phone;
+        this.date = date;
+        this.period = period;
+        this.color = color;
+        this.comment = comment;
+    }
+    @Parameterized.Parameters
+    public static Object[][] getDate () {
+        return new Object[][] {
+                {"Лариса","Ли","город Ташкент","Сокольники","+7899999999","26.07.2022", "двое суток", "black", "нет"},
+                {"Володя","Кит","город Псков","Сокольники","+7888999999","26.07.2022", "двое суток", "black", "нет"}
+        };
+    }
 
     @Before
     public void setPropAndStartBrowser() {
@@ -28,72 +53,49 @@ public class CheckOrderTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(HomePage.URL);
-        /*WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
-        driver.get(HomePage.URL);*/
+        driver.get(HomePage.URL);
     }
 
-    @After
-    public void teardown() {
-        driver.quit(); // Закрыть браузер
-    }
-
-    //Тест для набора 1
+   // @After
+   // public void teardown() {
+        //driver.quit(); // Закрыть браузер
+   // }
     @Test
-    public void checkOrderUpButtonTest() {
+    public void checkOrderSmallButtonTest() {
         HomePage homePage = new HomePage(driver);
         homePage.clickCookeMessageButton();
         homePage.clickOrderSmallButton();
 
         OrderPage orderPage=new OrderPage(driver);
-        orderPage.sendName();
-        orderPage.sendSurname();
-        orderPage.sendAddress();
-        orderPage.sendStation();
-        orderPage.sendChooseStation();
-        orderPage.sendPhone();
+        orderPage.fillOrderForm();
         orderPage.clickButtonNext();
 
         RentPage rentPage=new RentPage(driver);
-        rentPage.sendDate();
-        rentPage.sendChooseDate();
-        rentPage.sendInputPeriod();
-        rentPage.sendChoosePeriod();
-        rentPage.sendChooseСolor();
-        rentPage.sendComment();
+        rentPage.fillRentPage();
         rentPage.clickButtonOrder();
         rentPage.clickButtonOrderYes();
         String orderCompleted="Заказ оформлен";
         MatcherAssert.assertThat(rentPage.getOrderCompleted(), containsString(orderCompleted));
 
     }
-    /*Тест для набора 2
     @Test
-    public void checkOrderUpButtonTest_2() {
+    public void checkOrderBigButtonTest() {
         HomePage homePage = new HomePage(driver);
         homePage.clickCookeMessageButton();
-        homePage.clickOrderSmallButton();
+        homePage.clickOrderBigButton();
 
         OrderPage orderPage=new OrderPage(driver);
-        orderPage.sendName_2();
-        orderPage.sendSurname_2();
-        orderPage.sendAddress_2();
-        orderPage.sendStation_2();
-        orderPage.sendChooseStation_2();
-        orderPage.sendPhone_2();
-        orderPage.clickButtonNext_2();
+        orderPage.fillOrderForm();
+        orderPage.clickButtonNext();
 
         RentPage rentPage=new RentPage(driver);
-        rentPage.sendDate_2();
-        rentPage.sendChooseDate_2();
-        rentPage.sendInputPeriod_2();
-        rentPage.sendChoosePeriod_2();
-        rentPage.sendChooseСolor_2();
-        rentPage.sendComment_2();
-        rentPage.clickButtonOrder_2();
-        rentPage.clickButtonOrderYes_2();
+        rentPage.fillRentPage();
+        rentPage.clickButtonOrder();
+        rentPage.clickButtonOrderYes();
         String orderCompleted="Заказ оформлен";
         MatcherAssert.assertThat(rentPage.getOrderCompleted(), containsString(orderCompleted));
 
-    }*/
+    }
 }

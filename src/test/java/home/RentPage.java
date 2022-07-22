@@ -6,58 +6,57 @@ import org.openqa.selenium.WebDriver;
 public class RentPage {
     private final WebDriver driver;
     private final By inputDate = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
-    private final By chooseDate = By.xpath(".//div[@aria-label='Choose среда, 13-е июля 2022 г.']");
-    private final By chooseDate_2 = By.xpath(".//div[@aria-label='Choose пятница, 29-е июля 2022 г.']");
+    private final By chooseDate = By.xpath(".//div[@class='react-datepicker__month']//div[contains(@class,'react-datepicker__day')]");
     private final By inputPeriod = By.xpath(".//div[@class='Dropdown-placeholder']");
     private final By choosePeriod = By.xpath(".//div[text()='двое суток']");
     private final By choosePeriod_2 = By.xpath(".//div[text()='четверо суток']");
-    private final By chooseColor = By.xpath(".//input[@id='black']");
-    private final By chooseColor_2 = By.xpath(".//input[@id='grey']");
+    private final By chooseColor = By.id("black");
+    private final By chooseColor_2 = By.id("grey");
 
     private final By inputComment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
-    private final By buttonOrder = By.xpath("(.//button[text()='Заказать'])[2]");
-    private final By buttonOrderYes = By.xpath("/html/body/div/div/div[2]/div[5]/div[2]/button[2]");
-    private final By orderCompleted = By.xpath("(.//div[text()='Заказ оформлен'])[1]");
+    private final By buttonOrder = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
+    private final By buttonOrderYes = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Да']");
+    private final By orderCompleted = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ'][text()='Заказ оформлен']");
 
     public RentPage(WebDriver driver) {
         this.driver = driver;
     }
-    //Набор 1
-    public RentPage sendDate() {
-        driver.findElement(inputDate).click();
-        return this;
-    }
-    public RentPage sendChooseDate() {
-        driver.findElement(chooseDate).click();
-        return this;
-    }
-    public RentPage sendInputPeriod() {
-        driver.findElement(inputPeriod).click();
-        return this;
-    }
-    public RentPage sendChoosePeriod() {
-        driver.findElement(choosePeriod).click();
-        return this;
-    }
-    public RentPage sendChooseСolor() {
-        driver.findElement(chooseColor).click();
-        return this;
-    }
-    public RentPage sendComment() {
-        driver.findElement(inputComment).sendKeys("Захватите колы");
-        return this;
-    }
-    public RentPage clickButtonOrder() {
-        driver.findElement(buttonOrder).click();
-        return this;
-    }
-    public RentPage clickButtonOrderYes() {
-        driver.findElement(buttonOrderYes).click();
-        return this;
-    }
-    public String getOrderCompleted() {
-        return  driver.findElement(orderCompleted).getText();
-    }
+
+    Rent rent = new Rent("26.07.2022", "двое суток", "black", "нет");
+
+   public RentPage fillRentPage(){
+       fillDate(rent.getDate());
+       fillPeriod(rent.getPeriod());
+       fillColor(rent.getColor());
+       fillComment(rent.getComment());
+       return this;
+   }
+        //Набор 1
+        public void fillDate (String date){
+            driver.findElement(inputDate).click();
+            driver.findElement(chooseDate).click();
+        }
+
+        public void  fillPeriod (String period){
+            driver.findElement(inputPeriod).click();
+            driver.findElement(choosePeriod).click();
+        }
+
+        public void fillColor (String color) {
+            driver.findElement(chooseColor).click();
+        }
+        public void fillComment (String comment) {
+            driver.findElement(inputComment).sendKeys(comment);
+        }
+        public void clickButtonOrder () {
+            driver.findElement(buttonOrder).click();
+        }
+        public void clickButtonOrderYes () {
+            driver.findElement(buttonOrderYes).click();
+        }
+        public String getOrderCompleted () {
+            return driver.findElement(orderCompleted).getText();
+        }
 
 
     /*Набор 2
@@ -65,8 +64,8 @@ public class RentPage {
         driver.findElement(inputDate).click();
         return this;
     }
-    public RentPage sendChooseDate_2() {
-        driver.findElement(chooseDate_2).click();
+    public RentPage sendChooseDate() {
+        driver.findElement(chooseDate).click();
         return this;
     }
     public RentPage sendInputPeriod_2() {
@@ -96,4 +95,5 @@ public class RentPage {
     public String getOrderCompleted_2() {
         return  driver.findElement(orderCompleted).getText();
     }*/
-}
+    }
+

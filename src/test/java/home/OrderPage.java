@@ -1,5 +1,6 @@
 package home;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 public class OrderPage {
@@ -9,7 +10,7 @@ public class OrderPage {
     private final By inputAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     private final By inputStation = By.xpath(".//input[@placeholder='* Станция метро']");
     private final By inputPhone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
-    private final By inputNameStation = By.xpath(".//div[@class='Order_Text__2broi']");
+    private final By inputNameStation = By.xpath(".//ul[contains(@class,'select-search__options')]/li");
     private final By inputNameStation_2 = By.xpath(".//div[@class='Order_Circle__3uWFr']");
     private final By buttonNext = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
@@ -18,7 +19,40 @@ public class OrderPage {
 
         this.driver = driver;
     }
+    Order order=new Order("Лариса","Ли","город Ташкент","Сокольники","+7899999999");
 
+    public OrderPage fillOrderForm(){
+        fillName(order.getName());
+     fillSurname(order.getSurname());
+     fillAddress(order.getAddress());
+     fillStation(order.getStation());
+     fillPhone(order.getPhone());
+     return this;
+    }
+    private void fillName(String name) {
+        driver.findElement(inputName).sendKeys(name);
+    }
+    private void fillSurname(String surname) {
+        driver.findElement(inputSurname).sendKeys(surname);
+    }
+    private void fillAddress(String address) {
+        driver.findElement(inputAddress).sendKeys(address);
+    }
+    private void fillStation(String station) {
+        driver.findElement(inputStation).click();
+        driver.findElement(inputNameStation).click();
+    }
+
+    private void fillPhone(String phone) {
+        driver.findElement(inputPhone).sendKeys(phone);
+    }
+    public void clickButtonNext() {
+        driver.findElement(buttonNext).click();
+    }
+
+
+
+/*
     // Набор1
     public OrderPage sendName() {
         driver.findElement(inputName).sendKeys("Лариса");
@@ -71,7 +105,6 @@ public class OrderPage {
         driver.findElement(inputNameStation_2).click();
         return this;
     }
-
     public OrderPage sendPhone_2() {
         driver.findElement(inputPhone).sendKeys("+7789966333");
         return this;

@@ -112,6 +112,5 @@ public class CheckQuestionsTest {
         homePage.clickCookeMessageButton();
         homePage.getAnswerEight();
         assertEquals ("Не совпадает текст",AnswerText8, homePage.getAnswerEight());
-
     }
 }
